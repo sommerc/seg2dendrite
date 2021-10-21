@@ -170,27 +170,27 @@ def run(ilastik_seg_fn, min_size, scale):
         skel, skel_branches = skeletonize(img_seg == seg_id)
         pos_3d = extract_pos_3d(skel_branches, scale)
 
-        logging.info(f"  {seg_id}: Build branch graph")
+        logging.info(f"   : Build branch graph")
         graph_branches = build_branch_graph(skel_branches)
 
-        logging.info(f"  {seg_id}: Compute longest shortest path")
+        logging.info(f"   : Compute longest shortest path")
         shortest_path = shortest_dendrite_path(graph_branches)
 
         if len(shortest_path) < 3:
-            logging.info(f"  {seg_id}: Skeleton too short. skipping...")
+            logging.info(f"   : Skeleton too short. skipping...")
             continue
 
-        logging.info(f"  {seg_id}: Relabel graph for .swc format")
+        logging.info(f"   : Relabel graph for .swc format")
         swc_table = convert_graph_to_swc(
             graph_branches, shortest_path, pos_3d, radius=1
         )
 
-        logging.info(f"  {seg_id}: Write output .swc file")
+        logging.info(f"   : Write output .swc file")
         write_swc(base_fn + f"_fil{seg_id:02d}.swc", swc_table)
+    logging.info("Done")
 
 
 def get_args():
-
     description = """Extract skeletons from ilastik dendtite segmentation and export to .swc for import in Imaris"""
 
     parser = argparse.ArgumentParser(description=description)
@@ -209,5 +209,5 @@ if __name__ == "__main__":
     args = get_args()
 
     for ilastik_fn in args.ilastik_seg_h5:
-        run("ilastik_seg.h5", args.min_size, args.scale)
+        run(ilastik_fn, args.min_size, args.scale)
 

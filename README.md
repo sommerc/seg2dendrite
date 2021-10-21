@@ -1,4 +1,5 @@
-### seg2dendrite
+## seg2dendrite
+Command line tool:
 
 Trace dendrite and spine from ilastik segmentation and output .swc file for import into Imaris
 
@@ -18,8 +19,8 @@ optional arguments:
   -ms MIN_SIZE, --min_size MIN_SIZE
   -s SCALE, --scale SCALE
 ```
-#### Reuires
-Python 3.x
+#### Requires
+Python >3.6
 * h5py
 * skan
 * numpy
