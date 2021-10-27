@@ -227,7 +227,7 @@ def get_args():
     parser.add_argument(
         "-s",
         "--smooth_sigma",
-        type=int,
+        type=float,
         nargs=3,
         default=(0.5, 0.5, 0.5),
         help="Smooth prob. map  before thresholding. Gaussian sigma in px for ZYX",
