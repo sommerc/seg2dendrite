@@ -13,7 +13,7 @@ Use `Pixel Classification` workflow.
 ### 3. Convert probability maps to dendrite objects and save as .swc for import in Imaris
 Command line tool:
 
-Trace dendrite and spine from ilastik segmentation and output .swc file for import into Imaris
+Trace dendrite and spine from ilastik dendrite probability maps and output .swc file for import into Imaris
 
 ```
 usage: ilastik2dendrite.py [-h] [-ms MIN_SIZE] [-rl RESOLUTION_LEVEL]
