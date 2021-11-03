@@ -1,6 +1,7 @@
 import os
 import h5py
 import skan
+import json
 import numpy
 import logging
 import argparse
@@ -50,7 +51,15 @@ def extract_pos_3d(skan_branches, scale=2):
 
 def segment_prob_map(ilastik_fn, sigma, thresh):
     with h5py.File(ilastik_fn, "r") as hf:
-        prob_map = hf["exported_data"][()][0, ..., 0]  # time point 0
+        axis_tags = json.loads(hf["exported_data"].attrs["axistags"])["axes"]
+
+        zyx_idx = [[d["key"] for d in axis_tags].index(dd) for dd in "zyx"]
+
+        zyx_sel = [0,] * len(axis_tags)
+        for d in zyx_idx:
+            zyx_sel[d] = slice(None)
+
+        prob_map = hf["exported_data"][()][tuple(zyx_sel)]
 
     if prob_map.dtype != numpy.uint8:
         logging.warn(
