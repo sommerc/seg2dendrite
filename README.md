@@ -2,7 +2,9 @@
 
 
 ### 1. Convert .ims to .h5 for pixel classification in ilastik
-Use the ImageJ macro `ims2h5.ijm` to convert .ims files to ilastik .h5 files.
+Use the ImageJ macro `ims2h5.ijm` to convert .ims files to ilastik .h5 files. Note,
+that the `ilastik` update site needs to be enabled in Fiji.
+
 Choose a folder with .ims files and a resolution level (default 2; down scaling by factor of 2).
 
 ### 2. Use ilastik pixel classificaiton
