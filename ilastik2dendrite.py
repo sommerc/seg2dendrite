@@ -97,24 +97,30 @@ def skeletonize(seg_binary, vx_size=(1, 1, 1)):
     return skel, skel_branches
 
 
+# def _get_shortest_longest_path(graph_dend):
+#     predecessors, d = nx.floyd_warshall_predecessor_and_distance(graph_dend)
+
+#     max_path = 0
+#     a = None
+#     b = None
+#     for i in graph_dend.nodes():
+#         for j in graph_dend.nodes():
+#             if i != j:
+#                 dist = d[i][j]
+#                 if dist > max_path:
+#                     max_path = dist
+#                     a = i
+#                     b = j
+
+#     return nx.reconstruct_path(a, b, predecessors)
+
+
 def shortest_dendrite_path(graph_b):
     graph_dend = graph_b.subgraph([n for n in graph_b.nodes if graph_b.degree(n) > 1])
 
-    predecessors, d = nx.floyd_warshall_predecessor_and_distance(graph_dend)
-
-    max_path = 0
-    a = None
-    b = None
-    for i in graph_dend.nodes():
-        for j in graph_dend.nodes():
-            if i != j:
-                dist = d[i][j]
-                if dist > max_path:
-                    max_path = dist
-                    a = i
-                    b = j
-
-    return nx.reconstruct_path(a, b, predecessors)
+    mst = nx.algorithms.minimum_spanning_tree(graph_dend)
+    mst_df = nx.algorithms.traversal.depth_first_search.dfs_tree(mst)
+    return list(nx.algorithms.topological_sort(mst_df))
 
 
 def convert_graph_to_swc(graph_b, shortest_path, pos3d, radius=1):
@@ -195,7 +201,7 @@ def run(ilastik_seg_fn, min_size, rl, sigma, thresh):
         logging.info(f"   : Build branch graph")
         graph_branches = build_branch_graph(skel_branches)
 
-        logging.info(f"   : Compute longest shortest path")
+        logging.info(f"   : Compute minimum spanning tree")
         shortest_path = shortest_dendrite_path(graph_branches)
 
         if len(shortest_path) < 3:
