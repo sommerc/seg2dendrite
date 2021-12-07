@@ -71,7 +71,7 @@ def segment_prob_map(ilastik_fn, sigma, thresh):
     ), f"Wrong dimensions. Expected 3D, got shape: '{prob_map.shape}'"
 
     img = filters.gaussian(prob_map, sigma=sigma, preserve_range=True)
-    seg = measure.label(img > 255 * thresh)
+    seg = measure.label(img > (255 * thresh))
     return seg
 
 
@@ -118,19 +118,30 @@ def skeletonize(seg_binary, vx_size=(1, 1, 1)):
 def shortest_dendrite_path(graph_b):
     graph_dend = graph_b.subgraph([n for n in graph_b.nodes if graph_b.degree(n) > 1])
 
-    mst = nx.algorithms.minimum_spanning_tree(graph_dend)
-    mst_df = nx.algorithms.traversal.depth_first_search.dfs_tree(mst)
-    return list(nx.algorithms.topological_sort(mst_df))
+    graph_dend2 = graph_dend.subgraph(
+        [n for n in graph_dend.nodes if graph_dend.degree(n) > 1]
+    )
+
+    mst = nx.algorithms.minimum_spanning_tree(graph_dend2)
+    mst_df = nx.algorithms.traversal.depth_first_search.dfs_edges(mst)
+    return list(mst_df)
 
 
-def convert_graph_to_swc(graph_b, shortest_path, pos3d, radius=1):
-    spine_candidates = set(graph_b.nodes).difference(set(shortest_path))
+def flatten(t):
+    return [item for sublist in t for item in sublist]
+
+
+def convert_graph_to_swc(graph_b, dend_edges, pos3d, radius=1):
+    dend_nodes = set(flatten(dend_edges))
+
+    spine_candidates = set(graph_b.nodes).difference(set(dend_nodes))
 
     # node remapping to 1..n
-    node_mapping = {}
+    node_mapping = {dend_edges[0][0]: -1}
 
     # init node counter and output
     i = 1
+
     output = []
 
     # recursuve spine traverser
@@ -148,15 +159,12 @@ def convert_graph_to_swc(graph_b, shortest_path, pos3d, radius=1):
                 if sp[1] in spine_candidates:
                     add_spine_rec(sp[1], c)
 
-    c = shortest_path[0]
-    node_mapping[c] = 1
-    output.append((node_mapping[c], 0,) + pos3d[c] + (radius, -1))
-    i += 1
-    for sp in graph_b.edges(c):
+    c = dend_edges[0][0]
+    for sp in graph_b.edges(dend_edges[0][0]):
         if sp[1] in spine_candidates:
-            add_spine_rec(sp[1], c, typ=0)
+            add_spine_rec(sp[1], c)
 
-    for b, c in zip(shortest_path[:-1], shortest_path[1:]):
+    for b, c in dend_edges:
         if c not in node_mapping:
             node_mapping[c] = i
         i += 1
