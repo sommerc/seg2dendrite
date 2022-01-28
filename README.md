@@ -2,7 +2,7 @@
 #### Automatic 3D Dendritic Spine Quantification with ilastik and Imaris
 ---
 
-<img src="assets/dendrite+spines_5_1200x400.jpg" alt="Morse and Watson (Jonas group, unpublished)" style="width:512px;"/>
+<img src="assets/dendrite+spines_5_1200x400.jpg" alt="Morse and Watson (Jonas group, unpublished)" width="512" style="width:512px;"/>
 
 Morse and Watson (Jonas group, unpublished)
 
@@ -70,7 +70,7 @@ python seg2dendrite.py volume_Probabilities.h5 --smooth 0.5 1 1 --threshold 0.5 
 
 it will smooth the probability map with sigma ZYX of 0.5 x 1 x 1 and threshold at probability 0.5, filter dendrite objects for minimum size of 12000px.
 
-### ilastik2dendrite.py requires pip installable packages:
+### Dependencies (pip-installable)
 Python >3.6
 * h5py
 * skan
