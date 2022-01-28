@@ -240,7 +240,7 @@ def run(ilastik_seg_fn, min_size, rl, sigma, thresh):
 
 
 def get_args():
-    description = """Extract skeletons from ilastik dendrite probability maps and export to .swc for import in Imaris"""
+    description = """Extract the dentritic spine skeletons graph from ilastik probability maps and export to .swc for import in Imaris"""
 
     parser = argparse.ArgumentParser(description=description)
 
@@ -248,7 +248,7 @@ def get_args():
         "ilastik_h5",
         nargs="+",
         type=str,
-        help="ilastik probability map (single channel) in 8-bit",
+        help="ilastik probability map(s), if not single channel the 1st channel is used. Data type must be 8-bit",
     )
     parser.add_argument(
         "-ms",
@@ -266,11 +266,15 @@ def get_args():
         type=float,
         nargs=3,
         default=(0.5, 0.5, 0.5),
-        help="Smooth prob. map  before thresholding. Gaussian sigma in px for ZYX",
+        help="Smooth probability maps before thresholding. Gaussian sigma in px for ZYX",
     )
 
     parser.add_argument(
-        "-t", "--threshold", type=float, default=0.5, help="Probability map threshold",
+        "-t",
+        "--threshold",
+        type=float,
+        default=0.5,
+        help="Probability map threshold in range [0,1].",
     )
 
     args = parser.parse_args()
