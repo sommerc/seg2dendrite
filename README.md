@@ -1,5 +1,9 @@
 ## seg2dendrite
 
+<img src="assets/dendrite+spines_5_1200x400.jpg" alt="Morse and Watson (Jonas group, unpublished)" style="width:600px;"/>
+
+Morse and Watson (Jonas group, unpublished)
+
 
 ### 1. Convert .ims to .h5 for pixel classification in ilastik
 Use the ImageJ macro `ims2h5.ijm` to convert .ims files to ilastik .h5 files. Note,
