@@ -2,7 +2,7 @@
 #### Automatic 3D Dendritic Spine Quantification with ilastik and Imaris
 ---
 
-<img src="assets/dendrite+spines_5_1200x400.jpg" alt="Morse and Watson (Jonas group, unpublished)" width="512" style="width:512px;"/>
+<img src="assets/dendrite+spines_5_1200x400.jpg" alt="Morse and Watson (Jonas group, unpublished)" width="768" style="width:768px;"/>
 
 Morse and Watson (Jonas group, unpublished)
 
