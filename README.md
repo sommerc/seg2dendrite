@@ -6,7 +6,7 @@
 
 Morse and Watson (Jonas group, unpublished)
 
-### 1. Convert your images (.ims; or other) to .h5 for pixel classification in ilastik
+### 1. Convert your images (.ims; or other) to hdf5 (.h5) for pixel classification in ilastik
 ---
 
 Use the ImageJ macro `img2h5.ijm` to convert .ims files to ilastik .h5 files. Note,
@@ -15,7 +15,7 @@ that the `ilastik` update site needs to be enabled in Fiji.
 Choose a folder with images and a filetype (e. g. .ims). If your data is stored in
 multi-resolution, choose a resolution level (1: original resolution; 2 (default): down scaling by factor of 2).
 
-### 2. Use ilastik pixel classificaiton
+### 2. Use ilastik pixel classification
 ---
 
 Use `Pixel Classification` workflow.
