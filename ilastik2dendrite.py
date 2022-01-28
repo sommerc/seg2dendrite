@@ -115,15 +115,28 @@ def skeletonize(seg_binary, vx_size=(1, 1, 1)):
 #     return nx.reconstruct_path(a, b, predecessors)
 
 
-def shortest_dendrite_path(graph_b):
-    graph_dend = graph_b.subgraph([n for n in graph_b.nodes if graph_b.degree(n) > 1])
+# def shortest_dendrite_path_old(graph_b):
+#     graph_dend = graph_b.subgraph([n for n in graph_b.nodes if graph_b.degree(n) > 1])
 
-    graph_dend2 = graph_dend.subgraph(
-        [n for n in graph_dend.nodes if graph_dend.degree(n) > 1]
-    )
+#     graph_dend2 = graph_dend.subgraph(
+#         [n for n in graph_dend.nodes if graph_dend.degree(n) > 1]
+#     )
 
-    mst = nx.algorithms.minimum_spanning_tree(graph_dend2)
-    mst_df = nx.algorithms.traversal.depth_first_search.dfs_edges(mst)
+#     mst = nx.algorithms.minimum_spanning_tree(graph_dend2)
+#     mst_df = nx.algorithms.traversal.depth_first_search.dfs_edges(mst)
+#     return list(mst_df)
+
+
+def shortest_dendrite_path(graph_b, N_erosions=3):
+    mst = nx.algorithms.minimum_spanning_tree(graph_b)
+
+    mst_erode = mst.copy()
+    for _ in range(N_erosions):
+        mst_erode = mst_erode.subgraph(
+            [n for n in mst_erode.nodes if mst_erode.degree(n) > 1]
+        )
+
+    mst_df = nx.algorithms.traversal.depth_first_search.dfs_edges(mst,)
     return list(mst_df)
 
 
