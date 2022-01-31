@@ -13,12 +13,13 @@ by Sarun Gulyanon, 28 July 2018
   - Put `importswc.py` and `exportswc.py` in Python XTensions folder, e.g., `C:\Program Files\Bitplane\Imaris x64 9.2.0\XT\python`
   - Link Python to Imaris by select Files > Preferences.. > CustomTools, and browse the Python 2.7 Application, e.g., `<folder>/Anaconda2/python.exe` <-- (copy from clip-board)
   - Link the Python XTensions folder by select Files > Preferences.. > CustomTools, and add the XTensions Folders, e.g., `C:\Program Files\Bitplane\Imaris x64 9.2.0\XT\python\`
+  - Note, the last two steps must be done in *administrator mode* to take effect to all users
 
 ## How to Use ##
 To import SWC,
   1. First, open the image volume.
   2. Go to Image Processing > Import SWC as Filament
-  3. Select the SWC file using the dialog.
+  3. Select the SWC file using the dialog. Note, you can select multiple at once.
 
 To export SWC,
   1. First, open the image volume with Filament.
