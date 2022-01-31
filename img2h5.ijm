@@ -1,7 +1,7 @@
 #@ File (label="Select a directory", style="directory") dirname
 #@ Integer (label="Resolution level", value=2) series
 #@ String (visibility=MESSAGE, value="Resolution level 1 = full res; 2 = half the pixels per dimension ...") msg1
-#@ String (label="File type" value=".ims") filetype
+#@ String (label="File type", value=".ims") filetype
 
 function convert_img_to_h5(in_file, out_file, series) {
 
