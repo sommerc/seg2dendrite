@@ -7,7 +7,7 @@ function convert_img_to_h5(in_file, out_file, series) {
 
     run("Bio-Formats Importer", "open=" + in_file + " color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT series_" + series);
     title = getTitle();
-    run("Export HDF5", "select=" + out_file +  " datasetname=data compressionlevel=0 input=[" + title + "]");
+    run("Export HDF5", "exportpath=" + out_file +  " datasetname=data compressionlevel=0 input=[" + title + "]");
     close(title);
 };
 
